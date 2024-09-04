@@ -43,14 +43,6 @@ export default {
       if (this.secondCount < 0) return 0
       return Math.trunc(this.secondCount / 60 / 60 / 24)
     }
-  },
-  filters: {
-    twoDigits(value) {
-      if (value.toString().length <= 1) {
-        return '0' + value.toString()
-      }
-      return value.toString()
-    }
   }
 }
 </script>
@@ -58,7 +50,7 @@ export default {
 <template>
   <div class="countdown">
     <div v-if="days" class="countdown__block">
-      <div class="countdown__digit">{{ days | twodgits }}</div>
+      <div class="countdown__digit">{{ days }}</div>
       <div class="countdown__text">Días</div>
     </div>
     <div class="countdown__block">
@@ -66,7 +58,7 @@ export default {
       <div class="countdown__text">Hrs</div>
     </div>
     <div class="countdown__block">
-      <div class="countdown__digit">{{ minutes | twodgits }}</div>
+      <div class="countdown__digit">{{ minutes }}</div>
       <div class="countdown__text">Min</div>
     </div>
     <div class="countdown__block">
