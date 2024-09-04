@@ -1,6 +1,24 @@
-<script setup lang="ts">
+<script lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import Countdown from './components/Countdown.vue'
+export default {
+  components: {
+    Countdown,
+    TheWelcome,
+    HelloWorld
+  },
+  data() {
+    return {
+      end: new Date('2025-06-07T07:30:00')
+    }
+  },
+  methods: {
+    finish() {
+      console.log('finish')
+    }
+  }
+}
 </script>
 
 <template>
@@ -8,13 +26,13 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
+      <Countdown :date="end" @onFinish="finish()"></Countdown>
       <HelloWorld msg="You did it!" />
     </div>
   </header>
 
   <main>
     <TheWelcome />
-    <HelloWorld msg=""/>
   </main>
 </template>
 
