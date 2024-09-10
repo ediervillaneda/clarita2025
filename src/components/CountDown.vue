@@ -1,5 +1,6 @@
 <script lang="ts">
 export default {
+  name: 'CountDown',
   props: {
     date: null
   },
@@ -69,7 +70,13 @@ export default {
 </template>
 
 <style lang="css">
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Foldit:wght@100..900&family=Major+Mono+Display&display=swap');
+
 .countdown {
+  font-family: 'Major Mono Display', monospace;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
   display: flex;
   justify-content: center;
 }
@@ -89,7 +96,6 @@ export default {
 }
 .countdown__text {
   display: inline-block;
-  text-transform: uppercase;
   margin-bottom: 5px;
 }
 .countdown__digit {
@@ -97,10 +103,11 @@ export default {
   font-weight: bold;
   line-height: 1;
   margin-bottom: 5px;
+  min-width: 66.609px;
 }
 .countdown__digit:before {
   content: ':';
   position: absolute;
-  left: -5px;
+  left: -15px;
 }
 </style>
