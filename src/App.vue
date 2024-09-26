@@ -1,21 +1,26 @@
 <script lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import Countdown from './components/Countdown.vue'
+import TextAnimation from './components/TextAnimation.vue'
+import CountDown from './components/CountDown.vue'
+
 export default {
   components: {
-    Countdown,
+    CountDown,
     TheWelcome,
-    HelloWorld
+    HelloWorld,
+    TextAnimation
   },
   data() {
     return {
-      end: new Date('2025-06-07T07:30:00')
+      end: new Date('2025-06-07T07:30:00'),
+      final: true
     }
   },
   methods: {
     finish() {
       console.log('finish')
+      this.final = false
     }
   }
 }
@@ -23,15 +28,25 @@ export default {
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img
+      v-if="final"
+      alt="Love heart"
+      class="heart"
+      src="./assets/heart.svg"
+      width="125"
+      height="125"
+    />
 
     <div class="wrapper">
       <Countdown :date="end" @onFinish="finish()"></Countdown>
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg=" " />
     </div>
+    <!-- <div class="wrapper" v-else> -->
+    <TextAnimation v-else />
+    <div />
   </header>
 
-  <main>
+  <main v-if="final">
     <TheWelcome />
   </main>
 </template>
@@ -41,7 +56,7 @@ header {
   line-height: 1.5;
 }
 
-.logo {
+.heart {
   display: block;
   margin: 0 auto 2rem;
 }
@@ -53,7 +68,7 @@ header {
     padding-right: calc(var(--section-gap) / 2);
   }
 
-  .logo {
+  .heart {
     margin: 0 2rem 0 0;
   }
 
