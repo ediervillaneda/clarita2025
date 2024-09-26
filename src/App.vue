@@ -37,9 +37,9 @@ export default {
       height="125"
     />
 
-    <div class="wrapper">
-      <Countdown :date="end" @onFinish="finish()"></Countdown>
-      <HelloWorld msg=" " />
+    <div class="wrapper" v-if="final">
+      <CountDown :date="end" @onFinish="finish()"></CountDown>
+      <HelloWorld msg="Love you!"/>
     </div>
     <!-- <div class="wrapper" v-else> -->
     <TextAnimation v-else />

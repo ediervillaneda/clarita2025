@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
   msg: string
-  msg2: string
 }>()
 </script>
 
