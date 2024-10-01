@@ -39,7 +39,7 @@ export default {
 
     <div class="wrapper" v-if="final">
       <CountDown :date="end" @onFinish="finish()"></CountDown>
-      <HelloWorld msg="Love you!"/>
+      <HelloWorld msg="Love you!" />
     </div>
     <!-- <div class="wrapper" v-else> -->
     <TextAnimation v-else />
@@ -52,19 +52,66 @@ export default {
 </template>
 
 <style scoped>
+@keyframes heartbeat {
+  0%,
+  20%,
+  100% {
+    transform: scale(1);
+  }
+  10%,
+  30% {
+    transform: scale(1.3);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1.1);
+  }
+}
+
 header {
-  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  text-align: center;
 }
 
 .heart {
   display: block;
   margin: 0 auto 2rem;
+  animation: heartbeat 1.5s infinite;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 @media (min-width: 1024px) {
   header {
-    display: flex;
-    place-items: center;
+    flex-direction: row;
     padding-right: calc(var(--section-gap) / 2);
   }
 
@@ -74,8 +121,9 @@ header {
 
   header .wrapper {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 }
 </style>
