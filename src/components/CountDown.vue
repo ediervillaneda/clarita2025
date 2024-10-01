@@ -21,6 +21,11 @@ export default {
       }
     }, 1000)
   },
+  methods: {
+    pad(value: number) {
+      return value.toString().padStart(2, '0')
+    }
+  },
   computed: {
     secondCount() {
       return this.calculatedDate - this.now
@@ -29,16 +34,16 @@ export default {
       return Math.trunc(Date.parse(this.event) / 1000)
     },
     seconds() {
-      if (this.secondCount < 0) return 0
-      return this.secondCount % 60
+      if (this.secondCount < 0) return '00'
+      return this.pad(this.secondCount % 60)
     },
     minutes() {
-      if (this.secondCount < 0) return 0
-      return Math.trunc(this.secondCount / 60) % 60
+      if (this.secondCount < 0) return "00"
+      return this.pad(Math.trunc(this.secondCount / 60) % 60)
     },
     hours() {
-      if (this.secondCount < 0) return 0
-      return Math.trunc(this.secondCount / 60 / 60) % 24
+      if (this.secondCount < 0) return "00"
+      return this.pad(Math.trunc(this.secondCount / 60 / 60) % 24)
     },
     days() {
       if (this.secondCount < 0) return 0
