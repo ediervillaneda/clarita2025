@@ -28,14 +28,7 @@ export default {
 
 <template>
   <header>
-    <img
-      v-if="final"
-      alt="Love heart"
-      class="heart"
-      src="./assets/heart.svg"
-      width="125"
-      height="125"
-    />
+    <img v-if="final" alt="Love heart" class="heart" src="./assets/heart.svg" width="125" height="125" />
 
     <div class="wrapper" v-if="final">
       <CountDown :date="end" @onFinish="finish()"></CountDown>
@@ -53,24 +46,11 @@ export default {
 
 <style scoped>
 @keyframes heartbeat {
-  0%,
-  20%,
-  100% {
-    transform: scale(1);
-  }
-  10%,
-  30% {
-    transform: scale(1.3);
-  }
-  40% {
-    transform: scale(1.15);
-  }
-  70% {
-    transform: scale(1.2);
-  }
-  80% {
-    transform: scale(1.1);
-  }
+  0%, 20%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.3); }
+  40% { transform: scale(1.15); }
+  70% { transform: scale(1.2); }
+  80% { transform: scale(1.1); }
 }
 
 header {
