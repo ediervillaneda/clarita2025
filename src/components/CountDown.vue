@@ -38,11 +38,11 @@ export default {
       return this.pad(this.secondCount % 60)
     },
     minutes() {
-      if (this.secondCount < 0) return "00"
+      if (this.secondCount < 0) return '00'
       return this.pad(Math.trunc(this.secondCount / 60) % 60)
     },
     hours() {
-      if (this.secondCount < 0) return "00"
+      if (this.secondCount < 0) return '00'
       return this.pad(Math.trunc(this.secondCount / 60 / 60) % 24)
     },
     days() {
