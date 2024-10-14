@@ -3,18 +3,21 @@ import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import TextAnimation from './components/TextAnimation.vue'
 import CountDown from './components/CountDown.vue'
+import TheHistory from './components/TheHistory.vue'
 
 export default {
   components: {
     CountDown,
     TheWelcome,
     HelloWorld,
-    TextAnimation
+    TextAnimation,
+    TheHistory
   },
   data() {
     return {
       end: new Date('2025-06-07T07:30:00'),
-      final: true
+      final: true,
+      showModal: false
     }
   },
   methods: {
@@ -49,6 +52,18 @@ export default {
   <main v-if="final">
     <TheWelcome />
   </main>
+
+  <div class="app">
+    <div class="content">
+      <img
+        src="@/assets/time-door-icon.png"
+        class="time-door-icon"
+        alt="Time Door Icon"
+        @click="showModal = true"
+      />
+    </div>
+    <TheHistory :visible="showModal" @close="showModal = false" />
+  </div>
 </template>
 
 <style scoped>
@@ -124,6 +139,39 @@ main {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+  }
+}
+
+.app {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.content {
+  position: relative;
+  min-height: 100vh; /* Para asegurar que ocupa toda la pantalla */
+}
+
+.time-door-icon {
+  width: 50px; /* Ajusta el tamaño según tus necesidades */
+  height: 50px; /* Ajusta el tamaño según tus necesidades */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .time-door-icon {
+    position: static;
+    display: block;
+    margin: 20px auto;
   }
 }
 </style>
