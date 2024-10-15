@@ -1,50 +1,50 @@
 <template>
-    <canvas id="canvas" ref="canvas"></canvas>
+  <canvas id="canvas" ref="canvas"></canvas>
 </template>
 
 <script>
 export default {
-    name: "HeartAnimation",
-    data() {
-        return {
-            gl: null,
-            time: 0.0,
-            widthHandle: null,
-            heightHandle: null,
-            timeHandle: null,
-            lastFrame: Date.now(),
-        };
-    },
-    mounted() {
-        this.initWebGL();
-        window.addEventListener('resize', this.onWindowResize, false);
-        this.draw();
-    },
-    beforeUnmount() {
-        window.removeEventListener('resize', this.onWindowResize, false);
-    },
-    methods: {
-        initWebGL() {
-            const canvas = this.$refs.canvas;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+  name: 'HeartAnimation',
+  data() {
+    return {
+      gl: null,
+      time: 0.0,
+      widthHandle: null,
+      heightHandle: null,
+      timeHandle: null,
+      lastFrame: Date.now()
+    }
+  },
+  mounted() {
+    this.initWebGL()
+    window.addEventListener('resize', this.onWindowResize, false)
+    this.draw()
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onWindowResize, false)
+  },
+  methods: {
+    initWebGL() {
+      const canvas = this.$refs.canvas
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
 
-            this.gl = canvas.getContext('webgl');
-            if (!this.gl) {
-                console.error("Unable to initialize WebGL.");
-                return;
-            }
+      this.gl = canvas.getContext('webgl')
+      if (!this.gl) {
+        console.error('Unable to initialize WebGL.')
+        return
+      }
 
-            const gl = this.gl;
+      const gl = this.gl
 
-            // Shader sources
-            const vertexSource = `
+      // Shader sources
+      const vertexSource = `
         attribute vec2 position;
         void main() {
           gl_Position = vec4(position, 0.0, 1.0);
         }
-      `;
-            const fragmentSource = `
+      `
+      const fragmentSource = `
         precision highp float;
         uniform float width;
         uniform float height;
@@ -142,80 +142,74 @@ export default {
           col = pow(col, vec3(0.4545));
           gl_FragColor = vec4(col,1.0);
         }
-      `;
-            const vertexShader = this.compileShader(vertexSource, gl.VERTEX_SHADER);
-            const fragmentShader = this.compileShader(fragmentSource, gl.FRAGMENT_SHADER);
-            const program = gl.createProgram();
-            gl.attachShader(program, vertexShader);
-            gl.attachShader(program, fragmentShader);
-            gl.linkProgram(program);
-            gl.useProgram(program);
+      `
+      const vertexShader = this.compileShader(vertexSource, gl.VERTEX_SHADER)
+      const fragmentShader = this.compileShader(fragmentSource, gl.FRAGMENT_SHADER)
+      const program = gl.createProgram()
+      gl.attachShader(program, vertexShader)
+      gl.attachShader(program, fragmentShader)
+      gl.linkProgram(program)
+      gl.useProgram(program)
 
-            const vertexData = new Float32Array([
-                -1.0, 1.0,
-                -1.0, -1.0,
-                1.0, 1.0,
-                1.0, -1.0,
-            ]);
+      const vertexData = new Float32Array([-1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0])
 
-            const vertexDataBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+      const vertexDataBuffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBuffer)
+      gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW)
 
-            const positionHandle = this.getAttribLocation(program, 'position');
-            gl.enableVertexAttribArray(positionHandle);
-            gl.vertexAttribPointer(positionHandle, 2, gl.FLOAT, false, 2 * 4, 0);
+      const positionHandle = this.getAttribLocation(program, 'position')
+      gl.enableVertexAttribArray(positionHandle)
+      gl.vertexAttribPointer(positionHandle, 2, gl.FLOAT, false, 2 * 4, 0)
 
-            this.timeHandle = this.getUniformLocation(program, 'time');
-            this.widthHandle = this.getUniformLocation(program, 'width');
-            this.heightHandle = this.getUniformLocation(program, 'height');
+      this.timeHandle = this.getUniformLocation(program, 'time')
+      this.widthHandle = this.getUniformLocation(program, 'width')
+      this.heightHandle = this.getUniformLocation(program, 'height')
 
-            gl.uniform1f(this.widthHandle, window.innerWidth);
-            gl.uniform1f(this.heightHandle, window.innerHeight);
-        },
-        compileShader(shaderSource, shaderType) {
-            const shader = this.gl.createShader(shaderType);
-            this.gl.shaderSource(shader, shaderSource);
-            this.gl.compileShader(shader);
-            if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-                throw new Error("Shader compile failed with: " + this.gl.getShaderInfoLog(shader));
-            }
-            return shader;
-        },
-        getAttribLocation(program, name) {
-            const attributeLocation = this.gl.getAttribLocation(program, name);
-            if (attributeLocation === -1) {
-                throw new Error('Cannot find attribute ' + name + '.');
-            }
-            return attributeLocation;
-        },
-        getUniformLocation(program, name) {
-            const uniformLocation = this.gl.getUniformLocation(program, name);
-            if (uniformLocation === -1) {
-                throw new Error('Cannot find uniform ' + name + '.');
-            }
-            return uniformLocation;
-        },
-        onWindowResize() {
-            const canvas = this.$refs.canvas;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            this.gl.viewport(0, 0, canvas.width, canvas.height);
-            this.gl.uniform1f(this.widthHandle, window.innerWidth);
-            this.gl.uniform1f(this.heightHandle, window.innerHeight);
-        },
-        draw() {
-            const gl = this.gl;
-            this.thisFrame = Date.now();
-            this.time += (this.thisFrame - this.lastFrame) / 1000;
-            this.lastFrame = this.thisFrame;
-            gl.uniform1f(this.timeHandle, this.time);
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-            requestAnimationFrame(this.draw);
-        },
+      gl.uniform1f(this.widthHandle, window.innerWidth)
+      gl.uniform1f(this.heightHandle, window.innerHeight)
     },
-};
+    compileShader(shaderSource, shaderType) {
+      const shader = this.gl.createShader(shaderType)
+      this.gl.shaderSource(shader, shaderSource)
+      this.gl.compileShader(shader)
+      if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+        throw new Error('Shader compile failed with: ' + this.gl.getShaderInfoLog(shader))
+      }
+      return shader
+    },
+    getAttribLocation(program, name) {
+      const attributeLocation = this.gl.getAttribLocation(program, name)
+      if (attributeLocation === -1) {
+        throw new Error('Cannot find attribute ' + name + '.')
+      }
+      return attributeLocation
+    },
+    getUniformLocation(program, name) {
+      const uniformLocation = this.gl.getUniformLocation(program, name)
+      if (uniformLocation === -1) {
+        throw new Error('Cannot find uniform ' + name + '.')
+      }
+      return uniformLocation
+    },
+    onWindowResize() {
+      const canvas = this.$refs.canvas
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      this.gl.viewport(0, 0, canvas.width, canvas.height)
+      this.gl.uniform1f(this.widthHandle, window.innerWidth)
+      this.gl.uniform1f(this.heightHandle, window.innerHeight)
+    },
+    draw() {
+      const gl = this.gl
+      this.thisFrame = Date.now()
+      this.time += (this.thisFrame - this.lastFrame) / 1000
+      this.lastFrame = this.thisFrame
+      gl.uniform1f(this.timeHandle, this.time)
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+      requestAnimationFrame(this.draw)
+    }
+  }
+}
 </script>
 
-<style>
-</style>
+<style></style>

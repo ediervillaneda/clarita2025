@@ -1,11 +1,11 @@
 <script>
-import HeartAnimation from './HeartAnimation.vue';
+import HeartAnimation from './HeartAnimation.vue'
 
 export default {
   components: {
-    HeartAnimation,
-  },
-};
+    HeartAnimation
+  }
+}
 </script>
 
 <template>
@@ -18,7 +18,6 @@ export default {
     <div>Tu sonrisa ilumina mis días, por eso mereces el mejor cumpleaños.</div>
     <div>Porque tu amor me hace feliz, mereces un cumpleaños inolvidable.</div>
   </div>
-
 </template>
 
 <style scoped>
@@ -49,7 +48,7 @@ body {
   margin: 0.5em;
 }
 
-.text-animation>div {
+.text-animation > div {
   animation: come2life linear 10s infinite;
   transform-origin: center center;
   opacity: 0;
@@ -58,23 +57,23 @@ body {
   backface-visibility: hidden;
 }
 
-.text-animation>div:nth-child(1) {
+.text-animation > div:nth-child(1) {
   animation-delay: 0s;
 }
 
-.text-animation>div:nth-child(2) {
+.text-animation > div:nth-child(2) {
   animation-delay: 2s;
 }
 
-.text-animation>div:nth-child(3) {
+.text-animation > div:nth-child(3) {
   animation-delay: 4s;
 }
 
-.text-animation>div:nth-child(4) {
+.text-animation > div:nth-child(4) {
   animation-delay: 6s;
 }
 
-.text-animation>div:nth-child(5) {
+.text-animation > div:nth-child(5) {
   animation-delay: 8s;
 }
 
