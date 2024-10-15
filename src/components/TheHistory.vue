@@ -2,12 +2,13 @@
   <div v-if="visible" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
       <button class="close-button" @click="closeModal">X</button>
+      <h2 class="modal-title">Años pasados</h2>
       <ul class="styled-list">
         <li>
-          <a href="https://ediervillaneda.github.io/claris2020/" target="_blank">Clarita 2020</a>
+          <a href="https://ediervillaneda.github.io/clarita2020/" target="_blank">Clarita 2020</a>
         </li>
         <li>
-          <a href="https://ediervillaneda.github.io/claris2021/" target="_blank">Clarita 2021</a>
+          <a href="https://ediervillaneda.github.io/clarita2021/" target="_blank">Clarita 2021</a>
         </li>
         <!-- <li>
           <a href="https://ediervillaneda.github.io/claris2022/" target="_blank">Clarita 2022</a>
@@ -18,9 +19,9 @@
         <li>
           <a href="https://ediervillaneda.github.io/clarita2024/" target="_blank">Clarita 2024</a>
         </li>
-        <li>
+        <!-- <li>
           <a href="https://clarita.edier.site/" target="_blank">Clarita 2025</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -43,6 +44,12 @@ export default {
 </script>
 
 <style scoped>
+.modal-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
