@@ -48,6 +48,7 @@ export default {
   text-align: center;
   font-weight: bold;
   margin-bottom: 20px;
+  color: black;
 }
 
 .modal-overlay {

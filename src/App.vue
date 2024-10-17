@@ -44,9 +44,7 @@ export default {
       <CountDown :date="end" @onFinish="finish()"></CountDown>
       <HelloWorld msg="Love you!" />
     </div>
-    <!-- <div class="wrapper" v-else> -->
     <TextAnimation v-else />
-    <div />
   </header>
 
   <main v-if="final">
@@ -62,8 +60,8 @@ export default {
         @click="showModal = true"
       />
     </div>
-    <TheHistory :visible="showModal" @close="showModal = false" />
   </div>
+  <TheHistory :visible="showModal" @close="showModal = false" />
 </template>
 
 <style scoped>
@@ -142,19 +140,9 @@ main {
   }
 }
 
-.app {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
 .content {
   position: relative;
-  min-height: 100vh; /* Para asegurar que ocupa toda la pantalla */
+  /* min-height: 100vh; Para asegurar que ocupa toda la pantalla */
 }
 
 .time-door-icon {
@@ -168,6 +156,11 @@ main {
 }
 
 @media (max-width: 768px) {
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+
   .time-door-icon {
     position: static;
     display: block;
