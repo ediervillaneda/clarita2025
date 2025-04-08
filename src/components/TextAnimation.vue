@@ -17,6 +17,10 @@ export default {
     <div>Eres mi inspiración diaria y mereces un cumpleaños lleno de felicidad.</div>
     <div>Tu sonrisa ilumina mis días, por eso mereces el mejor cumpleaños.</div>
     <div>Porque tu amor me hace feliz, mereces un cumpleaños inolvidable.</div>
+    <div>Hoy celebro tu existencia, porque contigo todo es más bonito.</div>
+    <div>Mereces mil abrazos, risas sinceras y sueños cumplidos.</div>
+    <div>Que cada instante de este día refleje lo especial que eres.</div>
+    <div>El mundo es más dulce desde que estás en mi vida, y eso merece celebrarse.</div>
   </div>
 </template>
 
@@ -30,8 +34,8 @@ body {
 .text-animation {
   top: 0;
   left: 0;
-  position: relative;
-  width: 89vw;
+  position: fixed;
+  width: 100vw;
   height: 100vh;
   font-weight: bold;
   font-size: 2vw;
@@ -66,15 +70,32 @@ body {
 }
 
 .text-animation > div:nth-child(3) {
-  animation-delay: 4s;
+  animation-delay: 3s;
 }
 
 .text-animation > div:nth-child(4) {
-  animation-delay: 6s;
+  animation-delay: 5s;
 }
 
 .text-animation > div:nth-child(5) {
-  animation-delay: 8s;
+  animation-delay: 7s;
+}
+
+.text-animation > div:nth-child(6) {
+  animation-delay: 11s;
+}
+
+.text-animation > div:nth-child(7) {
+  animation-delay: 13s;
+}
+.text-animation > div:nth-child(8) {
+  animation-delay: 17s;
+}
+.text-animation > div:nth-child(9) {
+  animation-delay: 19s;
+}
+.text-animation > div:nth-child(10) {
+  animation-delay: 23s;
 }
 
 @keyframes come2life {
