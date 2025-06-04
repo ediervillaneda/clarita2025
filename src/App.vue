@@ -5,6 +5,9 @@ import TextAnimation from './components/TextAnimation.vue'
 import CountDown from './components/CountDown.vue'
 import TheHistory from './components/TheHistory.vue'
 
+import { db } from './firebase'
+import { ref, get, set } from 'firebase/database'
+
 export default {
   components: {
     CountDown,
@@ -15,7 +18,7 @@ export default {
   },
   data() {
     return {
-      end: new Date('2025-06-07T07:30:00'),
+      end: new Date('2025-06-07T00:00:00'),
       final: true,
       showModal: false
     }
@@ -25,6 +28,16 @@ export default {
       console.log('finish')
       this.final = false
     }
+  },
+  mounted() {
+    const visitasRef = ref(db, 'visitas')
+    get(visitasRef).then((snapshot) => {
+      let count = snapshot.exists() ? snapshot.val() : 0
+      console.log('Visitas actuales:', count)
+      set(visitasRef, count + 1).then(() => {
+        console.log('Nuevo valor enviado:', count + 1)
+      })
+    })
   }
 }
 </script>
