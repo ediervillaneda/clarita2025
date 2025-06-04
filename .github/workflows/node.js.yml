@@ -1,27 +1,38 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
+# Nombre del workflow que aparecerá en GitHub Actions
 name: Node.js CI
 
+# Evento que dispara el workflow: en este caso, cada vez que hay un push a la rama main
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build:
-
+    # El job se ejecuta en la última versión de Ubuntu disponible en GitHub Actions
     runs-on: ubuntu-latest
 
     strategy:
+      # Se define una matriz para probar varias versiones de Node.js
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        # Puedes consultar las versiones soportadas en https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci && npm run build
+      # Paso 1: Clona el repositorio en el runner
+      - uses: actions/checkout@v4
+
+      # Paso 2: Configura la versión de Node.js especificada en la matriz
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Habilita el cacheo de dependencias npm para acelerar builds futuros
+
+      # Paso 3: Instala dependencias y construye el proyecto
+      - name: Instalar dependencias y construir
+        run: npm ci && npm run build
+        # 'npm ci' instala dependencias usando package-lock.json (más rápido y reproducible que 'npm install')
+        # 'npm run build' ejecuta el script de build definido en package.json
